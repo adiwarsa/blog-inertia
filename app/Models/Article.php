@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Enums\ArticleStatus;
+use App\Models\Enums\ArticleStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Article extends Model
 {
     protected $casts = [
-        'status' => ArticleStatus::class,
+        'status' => ArticleStatusEnum::class,
         'published_at' => 'datetime',
         'scheduled_at' => 'datetime',
     ];

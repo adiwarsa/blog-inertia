@@ -1,9 +1,11 @@
 import { Head, usePage } from '@inertiajs/react';
+import ArticleBlock from '@/Pages/Articles/Partials/ArticleBlock';
 import AppLayout from '@/Layouts/AppLayout';
 import Container from '@/Components/Container';
 import Header from '@/Components/Header';
 
 export default function Home() {
+    const { data: articles } = usePage().props.articles
     return (
         <div>
             <Head title="Read it when you relax" />
@@ -13,7 +15,7 @@ export default function Home() {
             />
             <Container>
                 <div className="py-24">
-                    {/* Articles go here */}
+                    <ArticleBlock articles={articles} />
                 </div>
             </Container>
         </div>

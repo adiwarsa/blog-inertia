@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ArticleSingleResource;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,9 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return inertia('Articles/Show', [
+            'article' => new ArticleSingleResource($article->load('author', 'category')),
+        ]);
     }
 
     /**

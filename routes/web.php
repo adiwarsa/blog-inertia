@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -19,6 +21,8 @@ use Inertia\Inertia;
 */
 
 Route::get('/', HomeController::class)->name('home');
+Route::resource('categories', CategoryController::class)->scoped(['category' => 'slug']);
+Route::resource('articles', ArticleController::class)->scoped(['article' => 'slug']);
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');

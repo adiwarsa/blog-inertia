@@ -1,7 +1,7 @@
-<?
+<?php
 namespace App\Models\Enums;
 
-enum ArticleStatus: int
+enum ArticleStatusEnum: int
 {
     case Draft = 1;
     case Published = 2;
