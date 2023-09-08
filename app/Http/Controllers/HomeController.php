@@ -15,17 +15,25 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $articles = Article::query()
-            ->select('id', 'title', 'slug', 'excerpt', 'thumbnail', 'published_at', 'author_id', 'category_id', 'status')
-            ->with('author', 'category')
-            ->whereStatus(ArticleStatusEnum::Published)
-            ->latest()
-            ->paginate(9);
-    
         return inertia('Home', [
-            'articles' => ArticleBlockResource::collection($articles)->additional([
-                'meta' => [ 'has_pages' => $articles->hasPages() ],
-            ]),
+            'popularArticles' => ArticleBlockResource::collection(
+                Article::query()
+                    ->select('id', 'title', 'slug', 'excerpt', 'thumbnail', 'published_at', 'author_id', 'category_id', 'status')
+                    ->with('author', 'category')
+                    ->whereStatus(ArticleStatusEnum::Published)
+                    ->popularThisWeek()
+                    ->limit(3)
+                    ->get()
+            ),
+            'articles' => ArticleBlockResource::collection(
+                Article::query()
+                    ->select('id', 'title', 'slug', 'excerpt', 'thumbnail', 'published_at', 'author_id', 'category_id', 'status')
+                    ->with('author', 'category')
+                    ->whereStatus(ArticleStatusEnum::Published)
+                    ->latest()
+                    ->limit(6)
+                    ->get()
+            ),
         ]);
     }
 }

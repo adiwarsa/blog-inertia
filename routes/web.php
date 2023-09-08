@@ -23,6 +23,8 @@ use Inertia\Inertia;
 Route::get('/', HomeController::class)->name('home');
 Route::resource('categories', CategoryController::class)->scoped(['category' => 'slug']);
 Route::resource('articles', ArticleController::class)->scoped(['article' => 'slug']);
+Route::get('articles/popular/{key}', [ArticleController::class, 'popular'])->name('articles.popular');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');

@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use App\Models\Enums\ArticleStatusEnum;
+use Coderflex\Laravisit\Concerns\CanVisit;
+use Coderflex\Laravisit\Concerns\HasVisits;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 
-class Article extends Model
+class Article extends Model implements CanVisit
 {
+    use HasFactory, HasVisits;
     protected $casts = [
         'status' => ArticleStatusEnum::class,
         'published_at' => 'datetime',

@@ -54,6 +54,8 @@ return [
         App\Markdown\TableOfContentsSidebarExtension::class,
         App\Markdown\TableOfContentsSidebarExtension::class,
         App\Markdown\CalloutExtension::class,
+        App\Markdown\CalloutExtension::class,
+        App\Markdown\Youtube\YouTubeIframeExtension::class,
     ],
 
     /*
