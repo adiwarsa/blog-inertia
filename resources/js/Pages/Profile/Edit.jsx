@@ -1,15 +1,12 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 import { Head } from '@inertiajs/react';
+import AppLayout from '@/Layouts/AppLayout';
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="text-xl font-semibold leading-tight text-gray-800">Profile</h2>}
-        >
+        <div>
             <Head title="Profile" />
 
             <div className="py-12">
@@ -31,6 +28,7 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </div>
     );
 }
+Edit.layout = (page) => <AppLayout children={page} />;

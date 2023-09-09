@@ -1,10 +1,22 @@
 import AppLayout from '@/Layouts/AppLayout.jsx';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import Container from '@/Components/Container.jsx';
 import Prose from '@/Components/Prose.jsx';
 import Image from '@/Components/Image.jsx';
+import CommentBlock from '@/Pages/Articles/Partials/CommentBlock.jsx';
+import CommentForm from '@/Pages/Articles/Partials/CommentForm.jsx';
+import { useState } from 'react';
 
-export default function Show({ article }) {
+export default function Show({ article, comments }) {
+    const [open, setOpen] = useState(false);
+    const { auth } = usePage().props;
+    const [attributes, setAttributes] = useState({
+        body: '',
+        url: '',
+        method: 'post',
+        submitText: 'Comment',
+    });
+
     return (
         <div>
             <Head title={article.title} />
@@ -57,6 +69,46 @@ export default function Show({ article }) {
                     <div className="hidden w-1/4 lg:block" />
                     <div className="w-full lg:w-2/3">
                         <Prose value={article.body} />
+
+                        <div className="mt-12">
+                            {open && (
+                                <CommentForm
+                                    {...{
+                                        attributes,
+                                        auth,
+                                        open,
+                                        close: () => setOpen(false),
+                                    }}
+                                />
+                            )}
+
+                            <div className="mb-16">
+                                {auth.user ? (
+                                    <button
+                                        className="inline-flex rounded-lg bg-white px-4 py-2 text-center font-semibold text-black hover:bg-gray-100"
+                                        onClick={() => {
+                                            setOpen(true);
+                                            setAttributes({
+                                                body: '',
+                                                url: route('comments.store', [article]),
+                                                submitText: 'Comment',
+                                            });
+                                        }}
+                                    >
+                                        Post a comment
+                                    </button>
+                                ) : (
+                                    <Link
+                                        href={route('login')}
+                                        className="inline-flex rounded-lg bg-white px-4 py-2 text-center font-semibold text-black hover:bg-gray-100"
+                                    >
+                                        Login to post a comment
+                                    </Link>
+                                )}
+                            </div>
+
+                            <CommentBlock comments={comments} />
+                        </div>
                     </div>
                 </div>
             </Container>

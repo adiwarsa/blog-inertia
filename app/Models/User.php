@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,5 +48,20 @@ class User extends Authenticatable
     public function gravatar($size = 150): string
     {
         return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?s=' . $size . '&d=mp';
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class, 'author_id');
+    }
+    
+    public function reports(): BelongsToMany
+    {
+        return $this->belongsToMany(Comment::class, 'spam_comments')->withTimestamps();
+    }
+
+    public function hasReportedComment(Comment $comment): bool
+    {
+        return $this->reports()->where('comment_id', $comment->id)->exists();
     }
 }

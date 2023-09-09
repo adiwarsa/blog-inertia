@@ -25,6 +25,10 @@ const filters = [
         name: 'Latest',
         href: '/articles',
     },
+    {
+        name: 'Trending',
+        href: '/articles/popular/trending',
+    },
 ];
 export default function Filter() {
     return (

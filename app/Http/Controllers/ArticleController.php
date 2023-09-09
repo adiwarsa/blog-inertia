@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ArticleBlockResource;
 use App\Http\Resources\ArticleSingleResource;
+use App\Http\Resources\CommentResource;
 use App\Models\Article;
 use App\Models\Enums\ArticleStatusEnum;
 use Illuminate\Http\Request;
@@ -58,9 +59,15 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         $article->visit()->hourlyIntervals()->withIp()->withSession()->withUser();
-    
+
         return inertia('Articles/Show', [
             'article' => new ArticleSingleResource($article->load('author', 'category')),
+            'comments' => CommentResource::collection(
+                $article->comments()
+                    ->withCount('children')->where('parent_id', null)
+                    ->where('spam_reports', '<>', 10)
+                    ->get(),
+            ),
         ]);
     }
 
@@ -71,6 +78,7 @@ class ArticleController extends Controller
             'month' => $articles = Article::query()->with('author', 'category')->popularThisMonth()->paginate(9),
             'year' => $articles = Article::query()->with('author', 'category')->popularThisYear()->paginate(9),
             'all-time' => $articles = Article::query()->with('author', 'category')->popularAllTime()->paginate(9),
+            'trending' => $articles = Article::query()->with('author', 'category')->trending()->paginate(9),
         };
 
         $params = match ($key) {
@@ -89,6 +97,10 @@ class ArticleController extends Controller
             'all-time' => [
                 'title' => 'Popular All Time',
                 'subtitle' => 'The most popular articles of all time.',
+            ],
+            'trending' => [
+                'title' => 'Trending Articles',
+                'subtitle' => 'The most trending articles.',
             ],
         };
 

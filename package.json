@@ -29,6 +29,7 @@
         "clsx": "^1.2.1",
         "framer-motion": "^10.16.4",
         "highlight.js": "^11.8.0",
-        "react-lazy-load": "^4.0.1"
+        "react-lazy-load": "^4.0.1",
+        "sweetalert": "^2.1.2"
     }
 }

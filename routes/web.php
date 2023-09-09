@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -24,6 +25,11 @@ Route::get('/', HomeController::class)->name('home');
 Route::resource('categories', CategoryController::class)->scoped(['category' => 'slug']);
 Route::resource('articles', ArticleController::class)->scoped(['article' => 'slug']);
 Route::get('articles/popular/{key}', [ArticleController::class, 'popular'])->name('articles.popular');
+Route::resource('{article}/comments', CommentController::class)->only(['store', 'update', 'destroy']);
+Route::post('comments-reply/{comment}', [CommentController::class, 'reply'])->name('comments.reply');
+Route::post('comments/mark-as-spam/{comment}', [CommentController::class, 'reportSpam'])->name('comments.reportSpam');
+Route::post('comments/like/{comment}', [CommentController::class, 'like'])->name('comments.like');
+
 
 
 Route::middleware('auth')->group(function () {

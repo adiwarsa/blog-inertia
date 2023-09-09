@@ -20,7 +20,7 @@ export default function Navbar() {
                                     </Link>
                                 </div>
                                 <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
-                                    {/*<NavLink href="/articles" children="Blog" />*/}
+                                    {/* <NavLink href="/articles" children="Blog" /> */}
                                 </div>
                             </div>
                             <div className="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
