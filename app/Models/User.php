@@ -9,10 +9,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -63,5 +67,9 @@ class User extends Authenticatable
     public function hasReportedComment(Comment $comment): bool
     {
         return $this->reports()->where('comment_id', $comment->id)->exists();
+    }
+    public function articles(): HasMany
+    {
+        return $this->hasMany(Article::class, 'author_id');
     }
 }

@@ -20,9 +20,9 @@ export default function Home({ articles, popularArticles }) {
                     </div>
                     <ArticleBlock articles={popularArticles} />
                     <div className="mt-12 text-right">
-                        <Link className="text-sky-500 hover:underline" href={route('articles.popular', ['week'])}>
-                            See more popular articles
-                        </Link>
+                    <Link className="text-sky-500 hover:underline" href={route('articles.filter', ['week'])}>
+                        See more popular articles
+                    </Link>
                     </div>
 
                     <div className="mb-6 mt-24">

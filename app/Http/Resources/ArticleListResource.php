@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArticleSingleResource extends JsonResource
+class ArticleListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,21 +18,24 @@ class ArticleSingleResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
+            'status' => str($this->status->name)->lower(),
+            'href' => route('articles.show', $this->slug),
             'excerpt' => $this->excerpt,
-            'likes_count' => $this->likes_count,
-            'body' => Markdown::convert($this->body)->getContent(),
-            'thumbnail' => $this->getPicture('1080x720'),
+            'comments_count' => $this->comments_count,
             'published_at' => $this->published_at?->diffForHumans(),
             'category' => [
                 'name' => $this->category->name,
                 'href' => route('categories.show', $this->category->slug),
             ],
-            'author' => [
-                'gravatar' => $this->author->gravatar(),
+            'author' => $this->when($request->user()->hasRole('admin'), [
+                'picture' => $this->author->gravatar(),
                 'name' => $this->author->name,
                 'href' => '#',
-                'role' => 'Software Engineer',
-            ],
+            ]),
+
+            'delete' => $this->when($request->user()->hasRole('admin'), [
+                'href' => route('articles.destroy', $this->slug),
+            ]),
         ];
     }
 }

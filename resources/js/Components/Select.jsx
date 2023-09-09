@@ -1,12 +1,12 @@
 export default function Select({ options, placeholder = 'Select an options', ...props }) {
     return (
         <select
-            className="block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6"
+            className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6"
             {...props}
         >
-            <option value="">{placeholder}</option>
+            <option className="text-black" value="">{placeholder}</option>
             {options.map((option, index) => (
-                <option key={index} value={option.value}>
+                <option className="text-black" key={index} value={option.value}>
                     {option.label}
                 </option>
             ))}

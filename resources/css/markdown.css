@@ -61,3 +61,6 @@
 .prose :where(iframe):not(:where([class~='not-prose'] *)) {
     @apply my-6 aspect-video h-auto w-full overflow-hidden rounded-lg focus:outline-none;
 }
+.table-of-contents-sidebar-wrapper {
+    @apply left-0 lg:sticky top-8 -mb-72 ml-[-20rem] lg:w-72 z-20;
+}

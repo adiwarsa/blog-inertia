@@ -19,6 +19,8 @@ class AuthResource extends JsonResource
             'name' => $this->name,
             'gravatar' => $this->gravatar(50),
             'email' => $this->email,
+            'is_writer' => $this->when($this->can('create article'), true),
+            'is_admin' => $this->when($this->hasRole('admin'), true),
         ];
     }
 }

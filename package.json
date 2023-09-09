@@ -25,11 +25,14 @@
     },
     "dependencies": {
         "@heroicons/react": "^2.0.18",
+        "@uiw/react-md-editor": "^3.23.5",
         "clipboard": "^2.0.11",
         "clsx": "^1.2.1",
         "framer-motion": "^10.16.4",
         "highlight.js": "^11.8.0",
+        "lodash": "^4.17.21",
         "react-lazy-load": "^4.0.1",
+        "react-share": "^4.4.1",
         "sweetalert": "^2.1.2"
     }
 }

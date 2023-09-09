@@ -1,12 +1,22 @@
 import { Disclosure } from '@headlessui/react';
-import { Bars2Icon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { Bars2Icon, ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { Dropdown, DropdownLink } from '@/Components/Dropdown.jsx';
 import NavLink from '@/Components/NavLink.jsx';
-import { Link, usePage } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo.jsx';
+import { useState } from 'react';
+import { filters } from '@/Pages/Articles/Partials/Filter.jsx';
 
 export default function Navbar() {
-    const { auth } = usePage().props;
+    const { auth, global_categories } = usePage().props;
+    const [query, setQuery] = useState('');
+    function gimmeResult(e) {
+        e.preventDefault();
+        router.get(route('articles.search'), { search: query }, {
+            preserveScroll: true,
+            preserveState: true,
+        })
+    }
     return (
         <Disclosure as="nav" className="bg-gray-950">
             {({ open }) => (
@@ -21,6 +31,46 @@ export default function Navbar() {
                                 </div>
                                 <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
                                     {/* <NavLink href="/articles" children="Blog" /> */}
+                                    <Dropdown
+                                        align="right"
+                                        trigger={
+                                            <div className="flex items-center">
+                                                <span>Articles</span>
+                                                <ChevronDownIcon
+                                                    className="ml-4 h-4 w-4 text-gray-400"
+                                                    aria-hidden="true"
+                                                />
+                                            </div>
+                                        }
+                                    >
+                                        <div>
+                                            {filters.map((filter, i) => (
+                                                <DropdownLink key={i} href={filter.href}>
+                                                    {filter.name}
+                                                </DropdownLink>
+                                            ))}
+                                        </div>
+                                    </Dropdown>
+                                    <Dropdown
+                                        align="right"
+                                        trigger={
+                                            <div className="flex items-center">
+                                                <span>Categories</span>
+                                                <ChevronDownIcon
+                                                    className="ml-4 h-4 w-4 text-gray-400"
+                                                    aria-hidden="true"
+                                                />
+                                            </div>
+                                        }
+                                    >
+                                        <div>
+                                            {global_categories.map((category, i) => (
+                                                <DropdownLink key={i} href={route('categories.show', [category])}>
+                                                    {category.name}
+                                                </DropdownLink>
+                                            ))}
+                                        </div>
+                                    </Dropdown>
                                 </div>
                             </div>
                             <div className="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
@@ -28,18 +78,20 @@ export default function Navbar() {
                                     <label htmlFor="search" className="sr-only">
                                         Search
                                     </label>
-                                    <div className="relative">
+                                    <form onSubmit={gimmeResult} className="relative">
                                         <div className="group pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                             <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </div>
                                         <input
-                                            id="search"
-                                            name="search"
-                                            className="block w-full rounded-md border-0 bg-gray-800 py-1.5 pl-10 pr-3 text-sm leading-6 text-gray-900 text-white placeholder:text-gray-500 focus:bg-gray-700 focus:ring-gray-700"
+                                            id="query"
+                                            name="query"
+                                            value={query}
+                                            onChange={(e) => setQuery(e.target.value)}
+                                            className="block w-full rounded-md border border-gray-700 focus:border-sky-500 transition bg-gray-800 py-1.5 pl-10 pr-3 text-sm leading-6 text-white placeholder:text-gray-400 focus:bg-gray-700 focus:ring-sky-900 focus:border focus:ring focus:outline-none"
                                             placeholder="Search"
-                                            type="search"
+                                            type="query"
                                         />
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                             <div className="hidden lg:ml-4 lg:flex lg:items-center">
@@ -74,6 +126,11 @@ export default function Navbar() {
                                             <DropdownLink href={route('dashboard')}>Dashboard</DropdownLink>
                                             <DropdownLink href={route('profile.edit')}>Profile</DropdownLink>
                                         </div>
+                                        {auth.user?.is_writer && (
+                                            <div className='py-1'>
+                                                <DropdownLink href={route('articles.list')}>List article</DropdownLink>
+                                            </div>
+                                        )}
                                         <div className="py-1">
                                             <DropdownLink as="button" method="post" href={route('logout')}>
                                                 Log out
@@ -124,6 +181,11 @@ export default function Navbar() {
                                                 <DropdownLink href={route('dashboard')}>Dashboard</DropdownLink>
                                                 <DropdownLink href={route('profile.edit')}>Profile</DropdownLink>
                                             </div>
+                                            {auth.user?.is_writer && (
+                                                <div className='py-1'>
+                                                    <DropdownLink href={route('articles.list')}>List article</DropdownLink>
+                                                </div>
+                                            )}
                                             <div className="py-1">
                                                 <DropdownLink as="button" method="post" href={route('logout')}>
                                                     Log out

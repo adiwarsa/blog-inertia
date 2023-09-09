@@ -4,32 +4,37 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Link } from '@inertiajs/react';
 import clsx from 'clsx';
 
-const filters = [
+export const filters = [
     {
         name: 'Popular this week',
-        href: '/articles/popular/week',
+        href: '/articles/filter/week',
     },
     {
         name: 'Popular this month',
-        href: '/articles/popular/month',
+        href: '/articles/filter/month',
     },
     {
         name: 'Popular this year',
-        href: '/articles/popular/year',
+        href: '/articles/filter/year',
     },
     {
         name: 'Popular this all time',
-        href: '/articles/popular/all-time',
+        href: '/articles/filter/all-time',
+    },
+    {
+        name: 'Trending',
+        href: '/articles/filter/trending',
+    },
+    {
+        name: 'Most Likes',
+        href: '/articles/filter/most-likes',
     },
     {
         name: 'Latest',
         href: '/articles',
     },
-    {
-        name: 'Trending',
-        href: '/articles/popular/trending',
-    },
 ];
+
 export default function Filter() {
     return (
         <Menu as="div" className="relative inline-block text-left">

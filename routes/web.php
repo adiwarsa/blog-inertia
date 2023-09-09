@@ -23,12 +23,18 @@ use Inertia\Inertia;
 
 Route::get('/', HomeController::class)->name('home');
 Route::resource('categories', CategoryController::class)->scoped(['category' => 'slug']);
+Route::get('articles/list', [ArticleController::class, 'list'])->name('articles.list');
+Route::get('/articles/in', [ArticleController::class, 'search'])->name('articles.search');
 Route::resource('articles', ArticleController::class)->scoped(['article' => 'slug']);
-Route::get('articles/popular/{key}', [ArticleController::class, 'popular'])->name('articles.popular');
+Route::put('/articles/{article}/publish', [ArticleController::class, 'publish'])->name('articles.publish');
+Route::post('/articles/{article}/like', [ArticleController::class, 'like'])->name('articles.like');
+Route::get('articles/filter/{key}', [ArticleController::class, 'filter'])->name('articles.filter');
 Route::resource('{article}/comments', CommentController::class)->only(['store', 'update', 'destroy']);
 Route::post('comments-reply/{comment}', [CommentController::class, 'reply'])->name('comments.reply');
 Route::post('comments/mark-as-spam/{comment}', [CommentController::class, 'reportSpam'])->name('comments.reportSpam');
 Route::post('comments/like/{comment}', [CommentController::class, 'like'])->name('comments.like');
+
+
 
 
 

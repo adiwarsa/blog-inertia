@@ -6,6 +6,10 @@ import Image from '@/Components/Image.jsx';
 import CommentBlock from '@/Pages/Articles/Partials/CommentBlock.jsx';
 import CommentForm from '@/Pages/Articles/Partials/CommentForm.jsx';
 import { useState } from 'react';
+import { HeartIcon } from '@heroicons/react/24/outline/index.js';
+import ArticleShare from '@/Components/Sharing';
+
+
 
 export default function Show({ article, comments }) {
     const [open, setOpen] = useState(false);
@@ -37,6 +41,13 @@ export default function Show({ article, comments }) {
                                 </Link>
                             </div>
 
+                            <div className='flex items-center gap-x-2'>
+                                <Link as='button' method='post' href={route('articles.like', [article])}>
+                                    <HeartIcon className="h-5 w-5 text-pink-500" />
+                                </Link>
+                                <div className='text-gray-400 text-sm'>{article.likes_count} likes</div>
+                            </div>
+
                             <div className="flex items-center gap-x-3">
                                 <div className="shrink-0">
                                     <img
@@ -64,6 +75,13 @@ export default function Show({ article, comments }) {
                     </div>
                 </div>
             </div>
+            <ArticleShare
+                title={article.title}
+                url={route('articles.show', [article])}
+                image={article.thumbnail}
+                teaser={article.excerpt}
+                via="Your App Name"
+            />
             <Container>
                 <div className="relative flex flex-col gap-20 lg:flex-row">
                     <div className="hidden w-1/4 lg:block" />

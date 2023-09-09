@@ -35,6 +35,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user() ? new AuthResource($request->user()) : null,
             ],
+            'global_categories' => cache()->remember('categories', 3600, fn () => \App\Models\Category::query()->whereHas('articles')->select('slug', 'name')->take(10)->get()),
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),
