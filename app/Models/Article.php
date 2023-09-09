@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 class Article extends Model implements CanVisit
 {
     use HasFactory, HasVisits;
+    protected $guarded = [];
     protected $casts = [
         'status' => ArticleStatusEnum::class,
         'published_at' => 'datetime',

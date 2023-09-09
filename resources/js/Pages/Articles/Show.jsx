@@ -8,6 +8,7 @@ import CommentForm from '@/Pages/Articles/Partials/CommentForm.jsx';
 import { useState } from 'react';
 import { HeartIcon } from '@heroicons/react/24/outline/index.js';
 import ArticleShare from '@/Components/Sharing';
+import MetaTags from '@/Components/MetaTag';
 
 
 
@@ -24,7 +25,12 @@ export default function Show({ article, comments }) {
     return (
         <div>
             <Head title={article.title} />
-
+            <MetaTags
+                title={article.title}
+                description={article.excerpt}
+                url={route('articles.show', [article])}
+                image={article.thumbnail}
+            />
             <div className="mb-4 border-b border-gray-900 bg-gray-950 py-8 sm:py-32 lg:mb-16">
                 <div className="grid lg:grid-cols-6 lg:gap-24">
                     <div className="flex h-full flex-col pl-4 pr-4 lg:col-span-3 lg:col-start-1 lg:pl-28">

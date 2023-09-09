@@ -27,7 +27,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::query()
-            ->select('id', 'title', 'slug', 'excerpt', 'published_at', 'author_id', 'category_id', 'status')
+            ->select('id', 'title', 'slug', 'excerpt', 'published_at', 'author_id', 'category_id', 'status', 'thumbnail')
             ->with('author', 'category')
             ->whereStatus(ArticleStatusEnum::Published)
             ->latest()
@@ -127,7 +127,6 @@ class ArticleController extends Controller
             'published_at' => $status === ArticleStatusEnum::Published ? now() : null,
             'scheduled_at' => $status === ArticleStatusEnum::Scheduled ? $request->scheduled_at : null,
         ]);
-
         return to_route('articles.show', $article);
     }
 
@@ -245,11 +244,25 @@ class ArticleController extends Controller
 
             if ($like) {
                 $like->delete();
+                flashMessage(
+                    'Failed',
+                    'You unlike this article.',
+                    'warning',
+                );
             } else {
                 $article->likes()->create(['user_id' => $request->user()->id]);
+                flashMessage(
+                    'Success',
+                    'You liked this article.',
+                    'success',
+                );
             }
         } else {
-            // flash message
+            flashMessage(
+                'Failed',
+                'You need to login to like this article.',
+                'warning',
+            );
         }
 
         return back();
@@ -262,7 +275,24 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
 
-        //
+        return inertia('Articles/Form', [
+            'article' => $article,
+            'statuses' => collect(ArticleStatusEnum::cases())->map(fn ($status) => [
+                'value' => $status->value,
+                'label' => $status->label($status),
+            ]),
+            'categories' => Category::select('id', 'name')->get()->map(fn ($c) => [
+                'value' => $c->id,
+                'label' => $c->name,
+            ]),
+            'page_settings' => [
+                'method' => 'put',
+                'url' => route('articles.update', $article),
+                'submit_text' => 'Update',
+                'title' => $article->title,
+                'subtitle' => 'Grow your audience by creating the best articles.',
+            ],
+        ]);
     }
 
     /**
@@ -272,7 +302,30 @@ class ArticleController extends Controller
     {
         $this->authorize('update', $article);
 
-        //
+        $article->update([
+            'title' => $title = $request->string('title'),
+            'slug' => str($title.'-'.str()->random())->slug(),
+            'excerpt' => $request->string('excerpt'),
+            'body' => $request->string('body'),
+            'status' => $status = $request->enum('status', ArticleStatus::class) ?? ArticleStatus::Draft,
+            'category_id' => $request->integer('category'),
+            'published_at' => $status === ArticleStatusEnum::Published ? now() : null,
+            'scheduled_at' => $status === ArticleStatusEnum::Scheduled ? $request->scheduled_at : null,
+        ]);
+    
+        if ($request->hasFile('thumbnail')) {
+            if ($article->thumbnail) {
+                Storage::delete($article->thumbnail);
+            }
+    
+            $thumbnail = $request->file('thumbnail')->store('articles');
+        } else {
+            $thumbnail = $article->thumbnail;
+        }
+    
+        $article->update(['thumbnail' => $thumbnail]);
+    
+        return to_route('articles.show', $article);
     }
 
     /**
