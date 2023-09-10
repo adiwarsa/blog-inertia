@@ -4,8 +4,10 @@ import Container from '@/Components/Container';
 import ArticleBlock from '@/Pages/Articles/Partials/ArticleBlock';
 import Header from '@/Components/Header';
 import MetaTags from '@/Components/MetaTag';
+import { useTheme } from '@/Context/ThemeContext';
 
 export default function Home({ articles, popularArticles, gotoLatestArticle }) {
+    const { theme } = useTheme();
     return (
         <div>
              <Head title="Blog Inertia" />
@@ -14,7 +16,7 @@ export default function Home({ articles, popularArticles, gotoLatestArticle }) {
                 description="Blog with Inertia and React"
                 url={route('home')}
             />
-            <div className="relative isolate overflow-hidden bg-gray-950">
+            <div className="relative isolate overflow-hidden bg-white dark:bg-gray-950">
                 <svg
                     className="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
                     aria-hidden="true"
@@ -65,8 +67,8 @@ export default function Home({ articles, popularArticles, gotoLatestArticle }) {
                                 </span>
                             </Link>
                         </div>
-                        <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">Point of You</h1>
-                        <p className="mt-6 text-lg leading-8 text-gray-300">
+                        <h1 className={`mt-10 text-4xl font-bold tracking-tight ${theme === 'light' ? 'text-black' : 'text-white'} sm:text-6xl`}>Point of You</h1>
+                        <p className={`mt-6 text-lg leading-8 ${theme === 'light' ? 'text-black' : 'text-gray-300'} `}>
                             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit, sint, nostrum quis, vel praesentium minus autem cum totam quaerat iure quo aut rerum! Recusandae, fugit.
                         </p>
                     </div>

@@ -33,7 +33,7 @@ export default function Navbar() {
     // };
 
     return (
-        <Disclosure as="nav" className="bg-slate-300 dark:bg-gray-950">
+        <Disclosure as="nav" className="bg-white dark:bg-gray-950">
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-screen-2xl px-2 sm:px-4 lg:px-8">
@@ -50,9 +50,9 @@ export default function Navbar() {
                                         align="right"
                                         trigger={
                                             <div className="flex items-center">
-                                                <span>Articles</span>
+                                                <span className={`${theme === 'light' ? 'text-black' : 'text-gray-400'}`}>Articles</span>
                                                 <ChevronDownIcon
-                                                    className="ml-4 h-4 w-4 text-gray-400"
+                                                    className={`ml-4 h-4 w-4 ${theme === 'light' ? 'text-black' : 'text-gray-400'}`}
                                                     aria-hidden="true"
                                                 />
                                             </div>
@@ -70,9 +70,9 @@ export default function Navbar() {
                                         align="right"
                                         trigger={
                                             <div className="flex items-center">
-                                                <span>Categories</span>
+                                                <span className={`${theme === 'light' ? 'text-black' : 'text-gray-400'}`}>Categories</span>
                                                 <ChevronDownIcon
-                                                    className="ml-4 h-4 w-4 text-gray-400"
+                                                    className={`ml-4 h-4 w-4 ${theme === 'light' ? 'text-black' : 'text-gray-400'}`}
                                                     aria-hidden="true"
                                                 />
                                             </div>
