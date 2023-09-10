@@ -12,6 +12,7 @@ export default {
         './resources/js/**/*.jsx',
         './app/Markdown/*.php',
     ],
+    darkMode: 'class',
 
     theme: {
         extend: {

@@ -4,12 +4,23 @@ import { Dropdown, DropdownLink } from '@/Components/Dropdown.jsx';
 import NavLink from '@/Components/NavLink.jsx';
 import { Link, router, usePage } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { filters } from '@/Pages/Articles/Partials/Filter.jsx';
+import { useTheme } from '@/Context/ThemeContext';
 
 export default function Navbar() {
     const { auth, global_categories } = usePage().props;
     const [query, setQuery] = useState('');
+    const { theme, toggleTheme } = useTheme();
+
+//     useEffect(() => {
+//     if (theme === "dark"){
+//         document.documentElement.classList.add("dark");
+//     }else{
+//         document.documentElement.classList.remove("dark");
+//     }
+//    }, [theme]);
+
     function gimmeResult(e) {
         e.preventDefault();
         router.get(route('articles.search'), { search: query }, {
@@ -17,8 +28,12 @@ export default function Navbar() {
             preserveState: true,
         })
     }
+    // const handleThemeSwitch = () => {
+    //     setTheme(theme === "dark" ? "light" : "dark");
+    // };
+
     return (
-        <Disclosure as="nav" className="bg-gray-950">
+        <Disclosure as="nav" className="bg-slate-300 dark:bg-gray-950">
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-screen-2xl px-2 sm:px-4 lg:px-8">
@@ -71,6 +86,9 @@ export default function Navbar() {
                                             ))}
                                         </div>
                                     </Dropdown>
+                                    <button onClick={toggleTheme} className="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                        {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                                    </button>
                                 </div>
                             </div>
                             <div className="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
