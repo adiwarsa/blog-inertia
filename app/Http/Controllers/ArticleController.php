@@ -307,7 +307,7 @@ class ArticleController extends Controller
             'slug' => str($title.'-'.str()->random())->slug(),
             'excerpt' => $request->string('excerpt'),
             'body' => $request->string('body'),
-            'status' => $status = $request->enum('status', ArticleStatus::class) ?? ArticleStatus::Draft,
+            'status' => $status = $request->enum('status', ArticleStatusEnum::class) ?? ArticleStatusEnum::Draft,
             'category_id' => $request->integer('category'),
             'published_at' => $status === ArticleStatusEnum::Published ? now() : null,
             'scheduled_at' => $status === ArticleStatusEnum::Scheduled ? $request->scheduled_at : null,

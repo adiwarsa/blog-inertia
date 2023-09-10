@@ -2,12 +2,11 @@ import Image from '@/Components/Image.jsx';
 import { Link } from '@inertiajs/react';
 
 export default function ArticleBlock({ articles }) {
-    console.log(articles);
     return (
         <div className="grid grid-cols-1 gap-x-16 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {articles.map((article) => (
                 <article key={article.id} className="flex flex-col items-start justify-between">
-                    <div className="relative w-full">
+                    <div className="relative w-full hover:scale-105 transition-transform duration-300">                   
                         <Image
                             src={article.thumbnail}
                             alt=""

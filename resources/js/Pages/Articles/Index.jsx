@@ -8,7 +8,6 @@ import MetaTags from '@/Components/MetaTag';
 
 export default function Index({ params }) {
     const { data: articles, meta, links } = usePage().props.articles;
-    console.log(articles)
     return (
         <div>
             <Head title={params.title} />
