@@ -126,7 +126,7 @@ export default function Show({ article, comments }) {
                                         href={route('login')}
                                         className="inline-flex rounded-lg bg-white px-4 py-2 text-center font-semibold text-black hover:bg-gray-100"
                                     >
-                                        Login to post a comments
+                                        Login to post a comment
                                     </Link>
                                 )}
                             </div>
