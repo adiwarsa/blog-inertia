@@ -31,7 +31,6 @@ export default function Navbar() {
     // const handleThemeSwitch = () => {
     //     setTheme(theme === "dark" ? "light" : "dark");
     // };
-
     return (
         <Disclosure as="nav" className="bg-white dark:bg-gray-950">
             {({ open }) => (

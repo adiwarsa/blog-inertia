@@ -1,7 +1,9 @@
 import Image from '@/Components/Image.jsx';
+import { useTheme } from '@/Context/ThemeContext';
 import { Link } from '@inertiajs/react';
 
 export default function ArticleBlock({ articles }) {
+    const {theme} = useTheme();
     return (
         <div className="grid grid-cols-1 gap-x-16 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {articles.map((article) => (
@@ -21,13 +23,13 @@ export default function ArticleBlock({ articles }) {
                             </time>
                             <Link
                                 href={article.category.href}
-                                className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+                                className={`relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium ${theme === 'light' ? 'text-black' : 'text-gray-600 hover:bg-gray-100'} `}
                             >
                                 {article.category.name}
                             </Link>
                         </div>
                         <div className="group relative">
-                            <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-300 group-hover:text-white">
+                            <h3 className={`mt-3 text-lg font-semibold leading-6 ${theme === 'dark' ? 'text-gray-300 group-hover:text-white' : 'text-gray-700 group-hover:text-stone-400'} `}>
                                 <Link href={article.href}>
                                     <span className="absolute inset-0" />
                                     {article.title}
@@ -38,7 +40,7 @@ export default function ArticleBlock({ articles }) {
                         <div className="relative mt-8 flex items-center gap-x-4">
                             <img src={article.author.picture} alt="" className="h-10 w-10 rounded-full bg-gray-900" />
                             <div className="text-sm leading-6">
-                                <p className="font-semibold text-white">
+                                <p className={`font-semibold  ${theme === 'dark' ? 'text-white' : 'text-gray-900'} `}>
                                     <a href={article.author.href}>
                                         <span className="absolute inset-0" />
                                         {article.author.name}

@@ -10,10 +10,12 @@ import {
 } from '@heroicons/react/24/outline/index.js';
 import useSwal from '@/Hooks/useSwal.js';
 import clsx from 'clsx';
+import { useTheme } from '@/Context/ThemeContext';
 
 export default function ArticleList({ articles }) {
     const { ask } = useSwal();
     const { auth } = usePage().props;
+    const { theme } = useTheme();
     return (
         <div className="grid grid-cols-1 gap-4 lg:mx-0 lg:max-w-none lg:grid-cols-4">
             {articles.map((article) => (
