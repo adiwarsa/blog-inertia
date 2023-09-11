@@ -7,6 +7,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo.jsx';
 import { useEffect, useState } from 'react';
 import { filters } from '@/Pages/Articles/Partials/Filter.jsx';
 import { useTheme } from '@/Context/ThemeContext';
+import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 
 export default function Navbar() {
     const { auth, global_categories } = usePage().props;
@@ -85,9 +86,6 @@ export default function Navbar() {
                                             ))}
                                         </div>
                                     </Dropdown>
-                                    <button onClick={toggleTheme} className="text-gray-400 hover:text-gray-600 focus:outline-none">
-                                        {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-                                    </button>
                                 </div>
                             </div>
                             <div className="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
@@ -218,9 +216,21 @@ export default function Navbar() {
                                         </>
                                     )}
                                 </Dropdown>
+                                
+                            </div>
+                            <div className='px-5 flex'>
+                            <button
+                                onClick={toggleTheme}
+                                className={` ${theme === 'dark' ? 'text-black-400 hover:text-stone-500' : 'text-gray-400 hover:text-gray-600'}  focus:outline-none transition-transform duration-300 transform hover:scale-110`}
+                            >
+                                <span className={`transform ${theme === 'dark' ? 'rotate-0' : 'rotate-180'} transition-transform duration-300`}>
+                                    {theme === 'dark' ? <SunIcon className="h-6 w-6" /> : <MoonIcon className="h-6 w-6" />}
+                                </span>
+                            </button>
                             </div>
                         </div>
                     </div>
+                    
                 </>
             )}
         </Disclosure>
