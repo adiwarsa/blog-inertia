@@ -1,9 +1,11 @@
 import React from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { useTheme } from '@/Context/ThemeContext';
 
 export default function SearchInput({ value, onChange }) {
+    const {theme} = useTheme();
     return (
-        <div className="flex w-full items-center rounded-md border-0 bg-white/5 text-sm text-white shadow-sm ring-1 ring-inset ring-white/10">
+        <div className={`flex w-full items-center rounded-md border-0 bg-white/5 text-sm text-white shadow-sm ring-1 ring-inset ring-white/10`}>
             <span className="pl-3">
                 <MagnifyingGlassIcon className="h-h-4 group-focus-within:text-primary-400 w-4 transition duration-300" />
             </span>
