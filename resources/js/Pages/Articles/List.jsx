@@ -22,7 +22,7 @@ export default function List({filters}) {
     return (
         <div>
             <Head title="List article" />
-            <header className="bg-gray-950 pb-10 pt-16">
+            <header className="bg-white dark:bg-gray-950 pb-10 pt-16">
             <Container>
                 <div className="flex items-center justify-between">
                     <div>

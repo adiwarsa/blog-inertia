@@ -102,7 +102,7 @@ export default function Navbar() {
                                             name="query"
                                             value={query}
                                             onChange={(e) => setQuery(e.target.value)}
-                                            className="block w-full rounded-md border border-gray-700 focus:border-sky-500 transition bg-gray-800 py-1.5 pl-10 pr-3 text-sm leading-6 text-white placeholder:text-gray-400 focus:bg-gray-700 focus:ring-sky-900 focus:border focus:ring focus:outline-none"
+                                            className={`block w-full rounded-md border border-${theme === 'dark' ? 'gray' : 'white'}-700 focus:border-sky-500 transition bg-${theme === 'dark' ? 'gray' : 'white'}-800 py-1.5 pl-10 pr-3 text-sm leading-6 text-${theme === 'dark' ? 'white' : 'gray'}-700 placeholder:text-gray-400 focus:bg-${theme === 'dark' ? 'gray' : 'white'}-700 focus:ring-sky-900 focus:border focus:ring focus:outline-none`}
                                             placeholder="Search"
                                             type="query"
                                         />

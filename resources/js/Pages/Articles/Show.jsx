@@ -31,7 +31,7 @@ export default function Show({ article, comments }) {
                 url={route('articles.show', [article])}
                 image={article.thumbnail}
             />
-            <div className="mb-4 border-b border-gray-900 bg-gray-950 py-8 sm:py-32 lg:mb-16">
+            <div className="mb-4 border-b border-gray-900 bg-white dark:bg-gray-950 py-8 sm:py-32 lg:mb-16">
                 <div className="grid lg:grid-cols-6 lg:gap-24">
                     <div className="flex h-full flex-col pl-4 pr-4 lg:col-span-3 lg:col-start-1 lg:pl-28">
                         <div className="flex-1">

@@ -5,8 +5,10 @@ import ArticleBlock from '@/Pages/Articles/Partials/ArticleBlock';
 import Pagination from '@/Components/Pagination.jsx';
 import Filter from '@/Pages/Articles/Partials/Filter.jsx';
 import MetaTags from '@/Components/MetaTag';
+import { useTheme } from '@/Context/ThemeContext';
 
 export default function Index({ params }) {
+    const {theme} = useTheme();
     const { data: articles, meta, links } = usePage().props.articles;
     return (
         <div>
@@ -16,11 +18,11 @@ export default function Index({ params }) {
                 description={params.subtitle}
                 url={route('articles.index')}
             />
-            <div className="bg-gray-950 pb-10 pt-16">
+            <div className="bg-white dark:bg-gray-950 pb-10 pt-16">
                 <Container>
                     <div className="flex items-center justify-between">
                         <div>
-                            <h2 className="text-2xl font-bold tracking-tight text-white">{params.title}</h2>
+                            <h2 className={`text-2xl font-bold tracking-tight ${theme === 'light' ? 'text-black' : 'text-white'}`}>{params.title}</h2>
                             <p className="text-lg leading-8 text-gray-300">{params.subtitle}</p>
                         </div>
 
