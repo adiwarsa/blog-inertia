@@ -4,7 +4,7 @@ import { useTheme } from '@/Context/ThemeContext';
 export default function Header({ title, subtitle }) {
     const { theme } = useTheme();
     return (
-        <div className="border-b border-t border-gray-800 bg-slate-300 dark:bg-gray-900 py-10 sm:py-20">
+        <div className="border-b border-t border-gray-800 bg-white dark:bg-gray-900 py-10 sm:py-20">
             <Container>
                 <div className="max-w-xl">
                     <div>
