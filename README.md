@@ -1,9 +1,9 @@
 # Blog Still On Progress :)
 
 ## Homepage
-![Image 1](https://imageupload.io/ib/cifJXo7BNYO5ZE0_1694660252.png)
+![Image 1](https://res.cloudinary.com/dbzqohhj8/image/upload/v1695186911/o9ze99o6fbasuz062xro.png)
 ## Detail Article
-![Image 2](https://imageupload.io/ib/3t0VxKE77DyM1AV_1694660302.png)
+![Image 2](https://res.cloudinary.com/dbzqohhj8/image/upload/v1695186908/ndc2rsneesqslmglql34.png)
 
 
 
